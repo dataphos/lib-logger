@@ -7,8 +7,8 @@ that logs to stdout.
 ## Import package
 ```golang
 import (
-	"github.com/dataphos/lib-logger/logger"
-	"github.com/dataphos/lib-logger/standardlogger"
+    "github.com/dataphos/lib-logger/logger"
+    "github.com/dataphos/lib-logger/standardlogger"
 )
 ```
 
@@ -122,13 +122,13 @@ func main() {
     // goroutine
     go func() {
         routineLabels := labels.Clone().
-        	Add(logger.L{"component": "routine", "remove": "me", "and": "me"}).
-        	Del("remove", "and")
+            Add(logger.L{"component": "routine", "remove": "me", "and": "me"}).
+            Del("remove", "and")
         
-    	routineLog := standardlogger.New(routineLabels)
-    	defer routineLog.PanicLogger()
-    	
-    	// code...
+        routineLog := standardlogger.New(routineLabels)
+        defer routineLog.PanicLogger()
+        
+        // code...
     }()
 }
 ```
@@ -164,52 +164,52 @@ Important fields in the `zapcore.Entry` are `Message` and `Level`.
 The following example shows basic usage of the `NewForTesting` in a unit test:
 ```golang
 func TestNewForTesting(t *testing.T) {
-	log, logs := NewForTesting(logger.Labels{})
-	log.Info("Info")
+    log, logs := NewForTesting(logger.Labels{})
+    log.Info("Info")
 
-	expectedMsg := "Info"
-	entry := logs.All()[0]
-	if entry.Message != expectedMsg {
-		t.Errorf("Wrong message, want %s.", expectedMsg)
-	}
+    expectedMsg := "Info"
+    entry := logs.All()[0]
+    if entry.Message != expectedMsg {
+        t.Errorf("Wrong message, want %s.", expectedMsg)
+    }
 }
 ```
 
 This example demonstrates how to test when logging with extra fields:
 ```golang
 func TestNewForTesting_WithLabelsOnWarn(t *testing.T) {
-	log, logs := NewForTesting(
-		logger.Labels{
-			"product": "Persistor",
-			"license": "enterprise",
-		})
-	log.Warn("Warn")
+    log, logs := NewForTesting(
+        logger.Labels{
+            "product": "Persistor",
+            "license": "enterprise",
+        })
+    log.Warn("Warn")
 
-	expectedFields := []zap.Field{
-		zap.String("product", "Persistor"),
-		zap.String("license", "enterprise"),
-	}
-	expectedMsg := "Warn"
+    expectedFields := []zap.Field{
+        zap.String("product", "Persistor"),
+        zap.String("license", "enterprise"),
+    }
+    expectedMsg := "Warn"
 
-	entry := logs.All()[0]
+    entry := logs.All()[0]
 
-	if entry.Message != expectedMsg {
-		t.Errorf("Wrong message, want %s.", expectedMsg)
-	}
+    if entry.Message != expectedMsg {
+        t.Errorf("Wrong message, want %s.", expectedMsg)
+    }
 
-	for _, field := range expectedFields {
-		found := false
-		for _, v := range entry.Context {
-			if field.Equals(v) {
-				found = true
-				break
-			}
-		}
+    for _, field := range expectedFields {
+        found := false
+        for _, v := range entry.Context {
+            if field.Equals(v) {
+                found = true
+                break
+            }
+        }
 
-		if !found {
-			t.Errorf("Field not found, want %v.", field)
-		}
-	}
+        if !found {
+            t.Errorf("Field not found, want %v.", field)
+        }
+    }
 }
 ```
 
