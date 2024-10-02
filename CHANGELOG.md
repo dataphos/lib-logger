@@ -2,6 +2,9 @@
 
 ## 1.0.0 (2024-10-02)
 
+**Contributors:** 
+[@PetarBersic](https://github.com/PetarBersic),
+[@andrijadukic-syntio](https://github.com/andrijadukic-syntio)
 
 ### ⚠ BREAKING CHANGES
 
