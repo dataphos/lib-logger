@@ -5,6 +5,7 @@
 **Contributors:** 
 [@PetarBersic](https://github.com/PetarBersic),
 [@andrijadukic-syntio](https://github.com/andrijadukic-syntio)
+[@dsokota](https://github.com/dsokota)
 
 ### ⚠ BREAKING CHANGES
 
